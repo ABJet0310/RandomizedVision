@@ -1,11 +1,11 @@
-// middleware/authenticateUser.js
-
 const authenticateUser = (req, res, next) => {
-    const userId = req.session.userId; // Assuming user ID is stored in session
-    if (!userId) {
-        return res.status(401).send("Unauthorized");
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({ error: 'Unauthorized access' });
     }
-    req.userId = userId;
+    // Add token verification logic here
+    // For example: req.user = decodedTokenData
+    req.user = { id: '123', email: 'test@example.com' }; // Mocked user for testing
     next();
 };
 
